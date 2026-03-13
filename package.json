@@ -1,0 +1,11 @@
+{
+  "name": "expence-management-system",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "cd backend && node server.js",
+    "install-backend": "cd backend && npm install",
+    "install-frontend": "cd expense-tracker && npm install",
+    "build-frontend": "cd expense-tracker && npm run build"
+  }
+}
