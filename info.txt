@@ -1,0 +1,391 @@
+
+================================================================================
+           EXPENSE MANAGEMENT SYSTEM - COMPLETE PROJECT PLAN
+        (Frontend: React + Vite | Backend: JSON File Database)
+================================================================================
+Date: 13 March 2026
+Project Type: Web-Based Expense Management System
+Tech Stack: React 18 + Vite + TailwindCSS (or CSS Modules)
+Database  : JSON Files (localStorage + JSON file storage)
+Backend   : None (Pure Client-Side React App)
+Router    : React Router DOM v6
+State     : React Context API + useReducer
+================================================================================
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+WHY REACT + VITE + JSON DATABASE?
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   ✅ React → Component-based UI, reusable, maintainable
+   ✅ Vite  → Lightning fast dev server, instant HMR (Hot Module Reload)
+   ✅ No backend server required
+   ✅ JSON localStorage for persistent data storage
+   ✅ React Router → Clean SPA navigation
+   ✅ Context API → Global state management (no Redux needed for MVP)
+   ✅ Easy deploy → Netlify, Vercel, GitHub Pages after `npm run build`
+   ✅ Works offline after first load
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+TECH STACK DETAILS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   ⚛️  React 18           → UI Component Framework
+   ⚡  Vite 5             → Build Tool & Dev Server
+   🔀  React Router DOM 6 → Client-Side Routing
+   🎨  CSS Modules        → Scoped component styling
+   📊  Chart.js + react-chartjs-2 → Charts & Graphs
+   🔔  react-hot-toast    → Toast notifications
+   💾  localStorage       → JSON-based persistent storage
+   📤  xlsx (SheetJS)     → Excel/CSV export
+   📄  jspdf              → PDF export
+   🔒  crypto (SubtleCrypto API) → Password hashing
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+1. USER AUTHENTICATION & AUTHORIZATION (Login System)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   ✅ User Registration (Sign Up)    → Saved in: data/users.json (localStorage)
+   ✅ User Login / Logout            → AuthContext + localStorage session
+   ✅ Forgot Password / Reset        → Stored in: users.json
+   ✅ Role-Based Access Control:
+      - Admin    → Full access
+      - Manager  → Approve/reject expenses
+      - Employee → Submit & view own expenses
+   ✅ Profile Management             → Updated in: users JSON store
+   ✅ Session stored in localStorage (ems_currentUser key)
+   ✅ Protected Routes using <ProtectedRoute> component
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+2. DASHBOARD
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   ✅ Total Expenses (This Month / Year)  → Calculated from expenses store
+   ✅ Total Income / Budget Overview      → From income + budgets store
+   ✅ Recent Transactions List            → Last 10 from expenses store
+   ✅ Pie Chart (Expense by Category)     → react-chartjs-2 Pie
+   ✅ Line Chart (Monthly Trend)          → react-chartjs-2 Line
+   ✅ Notifications Panel                → From notifications store
+   ✅ Budget vs Actual Spending Widget    → budgets vs expenses
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+3. EXPENSE MANAGEMENT (Core Feature)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   ✅ Add / Edit / Delete Expense → Managed via ExpenseContext
+   ✅ Expense Fields:
+      - id          (auto-generated via nanoid or Date.now())
+      - title       (string)
+      - amount      (number)
+      - date        (string: "YYYY-MM-DD")
+      - time        (string: "HH:MM")
+      - category    (string: category id)
+      - paymentMode (string: "Cash" / "UPI" / "Card" / "NetBanking")
+      - receipt     (string: base64 image)
+      - isRecurring (boolean)
+      - frequency   (string: "Daily" / "Weekly" / "Monthly")
+      - status      (string: "Draft" / "Pending" / "Approved" / "Rejected")
+      - userId      (string)
+      - notes       (string)
+      - createdAt   (ISO timestamp)
+      - updatedAt   (ISO timestamp)
+
+   EXAMPLE expenses.json:
+   {
+     "expenses": [
+       {
+         "id": "exp_1710000000001",
+         "title": "Team Lunch",
+         "amount": 1250.00,
+         "date": "2026-03-13",
+         "time": "13:30",
+         "category": "cat_food",
+         "paymentMode": "UPI",
+         "receipt": "",
+         "isRecurring": false,
+         "frequency": "",
+         "status": "Approved",
+         "userId": "usr_001",
+         "notes": "Monthly team lunch",
+         "createdAt": "2026-03-13T08:00:00Z",
+         "updatedAt": "2026-03-13T08:05:00Z"
+       }
+     ]
+   }
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+4. INCOME MANAGEMENT
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   ✅ Add / Edit / Delete Income → Managed via IncomeContext
+   EXAMPLE income.json stored in localStorage (ems_income key)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+5. CATEGORY MANAGEMENT
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   ✅ 10 default categories seeded from public/data/categories.json
+   ✅ Add / Edit / Delete custom categories via CategoryContext
+   EXAMPLE categories.json stored in localStorage (ems_categories key)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+6. BUDGET MANAGEMENT
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   ✅ Set Budget per Category per Month → BudgetContext + budgets.json
+   ✅ Budget alerts when 80%/100% of limit reached
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+7. USER MANAGEMENT
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   ✅ User Accounts stored in localStorage (ems_users key)
+   ✅ Managed by AuthContext
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+8. APPROVAL WORKFLOW
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   ✅ Approval records stored in localStorage (ems_approvals key)
+   ✅ Managed via ApprovalContext
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+9. NOTIFICATIONS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   ✅ Notifications stored in localStorage (ems_notifications key)
+   ✅ react-hot-toast for real-time in-app toasts
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+10. SETTINGS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   ✅ App settings stored in localStorage (ems_settings key)
+   ✅ Managed via SettingsContext
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+11. REACT CONTEXT STORE (Replaces db.js from HTML version)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   Context files in src/context/:
+   ─────────────────────────────────────────────
+   AuthContext.jsx         → Login, Register, Logout, Session, Role check
+   ExpenseContext.jsx      → Expense CRUD, filters, search
+   IncomeContext.jsx       → Income CRUD
+   BudgetContext.jsx       → Budget CRUD, overspend detection
+   CategoryContext.jsx     → Category CRUD, default seeding
+   ApprovalContext.jsx     → Submit, Approve, Reject workflow
+   NotificationContext.jsx → Create, read, delete notifications
+   SettingsContext.jsx     → App-level settings
+
+   Shared DB utility: src/utils/db.js
+   → All localStorage read/write helpers used by all Contexts
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+12. ALL JSON SEED FILES (in public/data/)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   📁 public/data/
+      ├── users.json          → Demo user accounts
+      ├── expenses.json       → Empty array []
+      ├── income.json         → Empty array []
+      ├── categories.json     → 10 default categories
+      ├── budgets.json        → Empty array []
+      ├── approvals.json      → Empty array []
+      ├── notifications.json  → Empty array []
+      └── settings.json       → Default app settings
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+13. REACT PAGES / ROUTES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   Route                  Page Component         Description
+   ─────────────────────────────────────────────────────────
+   /                   → LoginPage             → Login form
+   /register           → RegisterPage          → Registration form
+   /dashboard          → DashboardPage         → Main dashboard
+   /expenses           → ExpensesPage          → Expenses list
+   /expenses/add       → AddExpensePage        → Add expense form
+   /expenses/edit/:id  → AddExpensePage        → Edit expense form
+   /income             → IncomePage            → Income management
+   /budget             → BudgetPage            → Budget management
+   /categories         → CategoriesPage        → Category management
+   /reports            → ReportsPage           → Analytics & reports
+   /approvals          → ApprovalsPage         → Approval workflow
+   /notifications      → NotificationsPage     → Notifications
+   /profile            → ProfilePage           → User profile
+   /admin              → AdminPage             → Admin panel
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+14. COMPLETE VITE + REACT FOLDER STRUCTURE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   expense-management-system/
+   │
+   ├── public/
+   │   ├── data/                    ← JSON Seed Files
+   │   │   ├── users.json
+   │   │   ├── expenses.json
+   │   │   ├── income.json
+   │   │   ├── categories.json
+   │   │   ├── budgets.json
+   │   │   ├── approvals.json
+   │   │   ├── notifications.json
+   │   │   └── settings.json
+   │   └── images/
+   │       ├── logo.png
+   │       └── avatar-default.png
+   │
+   ├── src/
+   │   ├── main.jsx               ← Vite entry point
+   │   ├── App.jsx                ← Router + Provider setup
+   │   │
+   │   ├── context/               ← React Context (Global State)
+   │   │   ├── AuthContext.jsx
+   │   │   ├── ExpenseContext.jsx
+   │   │   ├── IncomeContext.jsx
+   │   │   ├── BudgetContext.jsx
+   │   │   ├── CategoryContext.jsx
+   │   │   ├── ApprovalContext.jsx
+   │   │   ├── NotificationContext.jsx
+   │   │   └── SettingsContext.jsx
+   │   │
+   │   ├── pages/                 ← Route-level Page Components
+   │   │   ├── LoginPage.jsx
+   │   │   ├── RegisterPage.jsx
+   │   │   ├── DashboardPage.jsx
+   │   │   ├── ExpensesPage.jsx
+   │   │   ├── AddExpensePage.jsx
+   │   │   ├── IncomePage.jsx
+   │   │   ├── BudgetPage.jsx
+   │   │   ├── CategoriesPage.jsx
+   │   │   ├── ReportsPage.jsx
+   │   │   ├── ApprovalsPage.jsx
+   │   │   ├── NotificationsPage.jsx
+   │   │   ├── ProfilePage.jsx
+   │   │   └── AdminPage.jsx
+   │   │
+   │   ├── components/            ← Reusable UI Components
+   │   │   ├── layout/
+   │   │   │   ├── Sidebar.jsx
+   │   │   │   ├── Navbar.jsx
+   │   │   │   └── Layout.jsx
+   │   │   ├── common/
+   │   │   │   ├── KPICard.jsx
+   │   │   │   ├── DataTable.jsx
+   │   │   │   ├── Modal.jsx
+   │   │   │   ├── Badge.jsx
+   │   │   │   ├── ProgressBar.jsx
+   │   │   │   ├── SearchBar.jsx
+   │   │   │   ├── FilterPanel.jsx
+   │   │   │   └── ProtectedRoute.jsx
+   │   │   └── charts/
+   │   │       ├── PieChart.jsx
+   │   │       ├── BarChart.jsx
+   │   │       └── LineChart.jsx
+   │   │
+   │   ├── utils/                 ← Utility functions
+   │   │   ├── db.js              ← localStorage JSON engine
+   │   │   ├── auth.js            ← Password hashing helpers
+   │   │   ├── formatters.js      ← Date, currency formatters
+   │   │   └── validators.js      ← Form validation helpers
+   │   │
+   │   ├── hooks/                 ← Custom React Hooks
+   │   │   ├── useAuth.js
+   │   │   ├── useExpenses.js
+   │   │   ├── useBudget.js
+   │   │   └── useLocalStorage.js
+   │   │
+   │   └── styles/                ← Global CSS
+   │       ├── index.css          ← CSS Variables + Reset
+   │       ├── App.css            ← App-level layout
+   │       └── components.css     ← Shared component styles
+   │
+   ├── index.html                 ← Vite HTML template
+   ├── vite.config.js             ← Vite configuration
+   ├── package.json               ← Dependencies
+   └── info.txt                   ← This project plan file
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+15. NPM DEPENDENCIES (package.json)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   RUNTIME DEPENDENCIES:
+   ─────────────────────
+   react                    → ^18.3.0
+   react-dom                → ^18.3.0
+   react-router-dom         → ^6.22.0   (Routing)
+   chart.js                 → ^4.4.0    (Charts engine)
+   react-chartjs-2          → ^5.2.0    (React wrapper for Chart.js)
+   react-hot-toast          → ^2.4.1    (Toast notifications)
+   xlsx                     → ^0.18.5   (Excel/CSV export)
+   jspdf                    → ^2.5.1    (PDF export)
+   jspdf-autotable          → ^3.8.0    (Table in PDF)
+   date-fns                 → ^3.3.1    (Date helpers)
+   lucide-react             → ^0.358.0  (Icon library)
+
+   DEV DEPENDENCIES:
+   ─────────────────
+   vite                     → ^5.2.0
+   @vitejs/plugin-react      → ^4.2.0
+   eslint                   → ^8.57.0
+
+   INSTALL COMMAND:
+   npm create vite@latest expense-tracker -- --template react
+   cd expense-tracker
+   npm install react-router-dom chart.js react-chartjs-2 react-hot-toast xlsx jspdf jspdf-autotable date-fns lucide-react
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+16. HOW JSON DATABASE WORKS IN REACT
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   STORAGE METHOD: Browser localStorage + React Context
+   ─────────────────────────────────────────────────────────────
+   • On app start: seed JSON files fetched from public/data/
+   • Data loaded into localStorage (once, on first run)
+   • React Context reads from localStorage into React State
+   • All UI reactive updates happen through React State
+   • Writes: Context dispatch → update state → sync to localStorage
+   • Export: Download current state as .json / .xlsx / .pdf
+
+   DATA FLOW:
+   ──────────
+   public/data/*.json (initial seed)
+        ↓ (fetch on first run)
+   localStorage (persistent layer)
+        ↓ (read on Context init)
+   React Context State (runtime layer)
+        ↓ (dispatch actions)
+   React Components (UI rendering)
+        ↓ (user interaction)
+   Context dispatch → localStorage → React State → Re-render
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+17. FEATURES LIST (Complete)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   ✅ User Login / Register / Logout
+   ✅ Role-Based Access (Admin / Manager / Employee)
+   ✅ Protected Routes with React Router
+   ✅ Add / Edit / Delete Expenses
+   ✅ Add / Edit / Delete Income
+   ✅ Set Budget per Category
+   ✅ Budget Overspend Alert
+   ✅ Expense Approval Workflow
+   ✅ Receipt Upload (stored as base64)
+   ✅ Recurring Expenses
+   ✅ Search, Filter & Sort Expenses (React state-driven)
+   ✅ Dashboard with Charts (Pie, Bar, Line via react-chartjs-2)
+   ✅ Category Management (Custom + Default)
+   ✅ Monthly / Yearly Reports
+   ✅ Export to PDF / Excel / CSV
+   ✅ Import Expenses from CSV
+   ✅ react-hot-toast Notifications
+   ✅ Dark / Light Theme Toggle (CSS variables)
+   ✅ Multi-Currency Support
+   ✅ Data Backup (Download all JSON)
+   ✅ Data Restore (Upload JSON)
+   ✅ Admin Panel
+   ✅ Works Offline (after first CDN load + no external API needed)
+
+================================================================================
+                           PROJECT SUMMARY
+================================================================================
+Framework           : React 18 + Vite 5
+Total Pages         : 13 React Page Components
+Total Contexts      : 8 React Context Providers
+Utility Modules     : 4 (db.js, auth.js, formatters.js, validators.js)
+Custom Hooks        : 4
+JSON Seed Files     : 8 (in public/data/)
+npm Packages        : 11 runtime + 3 dev
+Dev Server Command  : npm run dev
+Build Command       : npm run build
+Estimated Dev Time  : 3-6 Weeks (Solo Developer)
+Difficulty Level    : Intermediate
+
+IMPORTANT NOTE:
+  React + Vite gives us component reusability, fast dev server (HMR),
+  and a proper production build. Data is still stored in localStorage
+  using JSON — no backend server, no database server required.
+  Run: npm run dev → open http://localhost:5173
+================================================================================

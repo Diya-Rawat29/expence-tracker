@@ -1,0 +1,5 @@
+Attempting to connect to: mongodb+srv://diy:***@expensetracker.ep8raoo.mongodb.net/
+✅ Successfully connected to MongoDB Database!
+Available collections: settings, expenses, categories, notifications, approvals, budgets, users, incomes
+Found 4 users in the database.
+Database connection is working perfectly.

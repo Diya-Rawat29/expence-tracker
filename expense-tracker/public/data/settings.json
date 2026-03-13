@@ -1,0 +1,11 @@
+{
+  "appName": "ExpenseTracker Pro",
+  "version": "1.0.0",
+  "currency": "INR",
+  "currencySymbol": "₹",
+  "dateFormat": "DD/MM/YYYY",
+  "theme": "dark",
+  "language": "en",
+  "taxRate": 18,
+  "fiscalYearStart": "April"
+}

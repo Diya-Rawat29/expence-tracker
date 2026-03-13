@@ -1,0 +1,88 @@
+{
+  "expenses": [
+    {
+      "id": "exp_001",
+      "title": "Team Lunch",
+      "amount": 1250,
+      "date": "2026-03-10",
+      "category": "cat_food",
+      "paymentMode": "UPI",
+      "notes": "Monthly team lunch",
+      "userId": "usr_001",
+      "status": "approved",
+      "createdAt": "2026-03-10T08:00:00Z"
+    },
+    {
+      "id": "exp_002",
+      "title": "Office Supplies",
+      "amount": 3450,
+      "date": "2026-03-08",
+      "category": "cat_office",
+      "paymentMode": "Card",
+      "notes": "Pen, notebooks, folders",
+      "userId": "usr_001",
+      "status": "approved",
+      "createdAt": "2026-03-08T10:00:00Z"
+    },
+    {
+      "id": "exp_003",
+      "title": "Cab to Office",
+      "amount": 280,
+      "date": "2026-03-12",
+      "category": "cat_travel",
+      "paymentMode": "UPI",
+      "notes": "",
+      "userId": "usr_002",
+      "status": "approved",
+      "createdAt": "2026-03-12T07:30:00Z"
+    },
+    {
+      "id": "exp_004",
+      "title": "Software Subscription",
+      "amount": 4999,
+      "date": "2026-03-01",
+      "category": "cat_tech",
+      "paymentMode": "Card",
+      "notes": "Annual plan",
+      "userId": "usr_001",
+      "status": "approved",
+      "createdAt": "2026-03-01T09:00:00Z"
+    },
+    {
+      "id": "exp_005",
+      "title": "Medicines",
+      "amount": 650,
+      "date": "2026-03-05",
+      "category": "cat_health",
+      "paymentMode": "Cash",
+      "notes": "Monthly prescriptions",
+      "userId": "usr_002",
+      "status": "approved",
+      "createdAt": "2026-03-05T15:00:00Z"
+    },
+    {
+      "id": "exp_006",
+      "title": "Electricity Bill",
+      "amount": 2100,
+      "date": "2026-02-28",
+      "category": "cat_rent",
+      "paymentMode": "NetBanking",
+      "notes": "February bill",
+      "userId": "usr_001",
+      "status": "approved",
+      "createdAt": "2026-02-28T11:00:00Z"
+    },
+    {
+      "id": "exp_007",
+      "title": "Online Course",
+      "amount": 1999,
+      "date": "2026-02-15",
+      "category": "cat_edu",
+      "paymentMode": "Card",
+      "notes": "React advanced course",
+      "userId": "usr_001",
+      "status": "approved",
+      "createdAt": "2026-02-15T12:00:00Z"
+    }
+  ]
+}

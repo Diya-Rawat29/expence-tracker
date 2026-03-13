@@ -1,0 +1,14 @@
+{
+  "categories": [
+    { "id": "cat_food",   "name": "Food & Dining",     "icon": "UtensilsCrossed", "color": "#FF6384" },
+    { "id": "cat_travel", "name": "Travel & Transport", "icon": "Car",             "color": "#36A2EB" },
+    { "id": "cat_health", "name": "Healthcare",         "icon": "HeartPulse",      "color": "#FF9F40" },
+    { "id": "cat_rent",   "name": "Rent & Utilities",   "icon": "Home",            "color": "#4BC0C0" },
+    { "id": "cat_edu",    "name": "Education",          "icon": "GraduationCap",   "color": "#9966FF" },
+    { "id": "cat_shop",   "name": "Shopping",           "icon": "ShoppingBag",     "color": "#F7464A" },
+    { "id": "cat_entmt",  "name": "Entertainment",      "icon": "Film",            "color": "#FFCD56" },
+    { "id": "cat_office", "name": "Office / Business",  "icon": "Briefcase",       "color": "#4BC0C0" },
+    { "id": "cat_tech",   "name": "Technology",         "icon": "Smartphone",      "color": "#36A2EB" },
+    { "id": "cat_other",  "name": "Other",              "icon": "MoreHorizontal",  "color": "#C9CBCF" }
+  ]
+}
