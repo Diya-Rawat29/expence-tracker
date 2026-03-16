@@ -14,7 +14,7 @@ export default function IncomePage() {
   const [form, setForm] = useState({ source: 'Salary', amount: '', date: today(), notes: '' });
 
   useEffect(() => {
-    fetch('/api/incomes')
+    fetch('https://expence-tracker-backend-2rub.onrender.com/api/incomes')
       .then(res => res.json())
       .then(data => setIncomes(data))
       .catch(console.error);
@@ -24,7 +24,7 @@ export default function IncomePage() {
     if (!form.amount || parseFloat(form.amount) <= 0) { toast.error('Enter valid amount'); return; }
     const newIncome = { ...form, id: `inc_${Date.now()}`, amount: parseFloat(form.amount), createdAt: new Date().toISOString() };
     try {
-      await fetch('/api/incomes', {
+      await fetch('https://expence-tracker-backend-2rub.onrender.com/api/incomes', {
         method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(newIncome)
       });
       const updated = [newIncome, ...incomes];
@@ -38,7 +38,7 @@ export default function IncomePage() {
 
   const deleteIncome = async (id) => {
     try {
-      await fetch(`/api/incomes/${id}`, { method: 'DELETE' });
+      await fetch(`https://expence-tracker-backend-2rub.onrender.com/api/incomes/${id}`, { method: 'DELETE' });
       const updated = incomes.filter(i => i.id !== id);
       setIncomes(updated);
       toast.success('Deleted');

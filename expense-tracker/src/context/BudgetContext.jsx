@@ -18,7 +18,7 @@ export function BudgetProvider({ children }) {
   });
 
   useEffect(() => {
-    fetch('/api/budgets')
+    fetch('https://expence-tracker-backend-2rub.onrender.com/api/budgets')
       .then(res => res.json())
       .then(data => dispatch({ type: 'SEED', payload: data }))
       .catch(console.error);
@@ -26,14 +26,14 @@ export function BudgetProvider({ children }) {
 
   const setBudget = async (categoryId, monthYear, limitAmount, userId) => {
     const payload = { id: `bud_${Date.now()}`, categoryId, monthYear, limitAmount: parseFloat(limitAmount), userId, createdAt: new Date().toISOString() };
-    await fetch('/api/budgets', {
+    await fetch('https://expence-tracker-backend-2rub.onrender.com/api/budgets', {
       method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload)
     });
     dispatch({ type: 'SET', payload });
   };
 
   const deleteBudget = async (id) => {
-    await fetch(`/api/budgets/${id}`, { method: 'DELETE' });
+    await fetch(`https://expence-tracker-backend-2rub.onrender.com/api/budgets/${id}`, { method: 'DELETE' });
     dispatch({ type: 'DELETE', payload: id });
   };
 

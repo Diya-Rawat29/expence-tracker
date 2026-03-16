@@ -38,7 +38,7 @@ export function ExpenseProvider({ children }) {
 
   // Fetch initial data from backend
   useEffect(() => { 
-    fetch('/api/expenses')
+    fetch('https://expence-tracker-backend-2rub.onrender.com/api/expenses')
       .then(res => res.json())
       .then(data => dispatch({ type: 'SET_EXPENSES', payload: data }))
       .catch(console.error);
@@ -63,7 +63,7 @@ export function ExpenseProvider({ children }) {
 
   const addExpense = async (data) => {
     const payload = { ...data, id: `exp_${Date.now()}`, amount: parseFloat(data.amount), createdAt: new Date().toISOString() };
-    await fetch('/api/expenses', {
+    await fetch('https://expence-tracker-backend-2rub.onrender.com/api/expenses', {
       method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload)
     });
     dispatch({ type: 'ADD', payload });
@@ -71,14 +71,14 @@ export function ExpenseProvider({ children }) {
 
   const updateExpense = async (id, changes) => {
     const payload = { ...changes, amount: parseFloat(changes.amount || 0) };
-    await fetch(`/api/expenses/${id}`, {
+    await fetch(`https://expence-tracker-backend-2rub.onrender.com/api/expenses/${id}`, {
       method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload)
     });
     dispatch({ type: 'UPDATE', payload: { id, changes: payload } });
   };
 
   const deleteExpense = async (id) => {
-    await fetch(`/api/expenses/${id}`, { method: 'DELETE' });
+    await fetch(`https://expence-tracker-backend-2rub.onrender.com/api/expenses/${id}`, { method: 'DELETE' });
     dispatch({ type: 'DELETE', payload: id });
   };
   const setFilters = (f) => dispatch({ type: 'SET_FILTERS', payload: f });

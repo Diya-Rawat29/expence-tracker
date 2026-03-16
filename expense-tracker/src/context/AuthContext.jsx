@@ -4,7 +4,7 @@ import { hashPassword } from '../utils/auth';
 
 const AuthContext = createContext(null);
 
-const API = '/api'; // proxied to /api via vite.config.js
+const API = 'https://expence-tracker-backend-2rub.onrender.com/api'; // proxied to /api via vite.config.js
 
 function authReducer(state, action) {
   switch (action.type) {

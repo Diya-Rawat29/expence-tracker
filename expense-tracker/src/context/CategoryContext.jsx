@@ -19,7 +19,7 @@ export function CategoryProvider({ children }) {
   });
 
   useEffect(() => {
-    fetch('/api/categories')
+    fetch('https://expence-tracker-backend-2rub.onrender.com/api/categories')
       .then(res => res.json())
       .then(data => dispatch({ type: 'SEED', payload: data }))
       .catch(console.error);
@@ -27,21 +27,21 @@ export function CategoryProvider({ children }) {
 
   const addCategory = async (data) => {
     const payload = { ...data, id: `cat_${Date.now()}`, createdBy: 'user', createdAt: new Date().toISOString() };
-    await fetch('/api/categories', {
+    await fetch('https://expence-tracker-backend-2rub.onrender.com/api/categories', {
       method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload)
     });
     dispatch({ type: 'ADD', payload });
   };
 
   const updateCategory = async (id, data) => {
-    await fetch(`/api/categories/${id}`, {
+    await fetch(`https://expence-tracker-backend-2rub.onrender.com/api/categories/${id}`, {
       method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data)
     });
     dispatch({ type: 'UPDATE', payload: { ...data, id } });
   };
 
   const deleteCategory = async (id) => {
-    await fetch(`/api/categories/${id}`, { method: 'DELETE' });
+    await fetch(`https://expence-tracker-backend-2rub.onrender.com/api/categories/${id}`, { method: 'DELETE' });
     dispatch({ type: 'DELETE', payload: id });
   };
   const getById = (id) => state.categories.find(c => c.id === id);

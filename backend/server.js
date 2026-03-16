@@ -6,7 +6,7 @@ const cors = require('cors');
 const app = express();
 app.use(express.json({ limit: '10mb' }));
 app.use(cors({
-  origin: ['http://localhost:5173', 'http://127.0.0.1:5173'],
+  origin: ['http://localhost:5173', 'http://127.0.0.1:5173', 'https://expence-tracker-6jmw.onrender.com'],
   credentials: true,
 }));
 
