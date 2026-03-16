@@ -32,6 +32,17 @@
       "theme": "dark",
       "isActive": true,
       "createdAt": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": "usr_004",
+      "name": "Diya",
+      "email": "diyarawat0506@gmail.com",
+      "password": "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918",
+      "role": "admin",
+      "currency": "INR",
+      "theme": "dark",
+      "isActive": true,
+      "createdAt": "2026-03-15T00:00:00Z"
     }
   ]
 }

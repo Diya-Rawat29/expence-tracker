@@ -14,7 +14,7 @@ export default function IncomePage() {
   const [form, setForm] = useState({ source: 'Salary', amount: '', date: today(), notes: '' });
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/incomes')
+    fetch('/api/incomes')
       .then(res => res.json())
       .then(data => setIncomes(data))
       .catch(console.error);
@@ -24,7 +24,7 @@ export default function IncomePage() {
     if (!form.amount || parseFloat(form.amount) <= 0) { toast.error('Enter valid amount'); return; }
     const newIncome = { ...form, id: `inc_${Date.now()}`, amount: parseFloat(form.amount), createdAt: new Date().toISOString() };
     try {
-      await fetch('http://localhost:5000/api/incomes', {
+      await fetch('/api/incomes', {
         method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(newIncome)
       });
       const updated = [newIncome, ...incomes];
@@ -38,7 +38,7 @@ export default function IncomePage() {
 
   const deleteIncome = async (id) => {
     try {
-      await fetch(`http://localhost:5000/api/incomes/${id}`, { method: 'DELETE' });
+      await fetch(`/api/incomes/${id}`, { method: 'DELETE' });
       const updated = incomes.filter(i => i.id !== id);
       setIncomes(updated);
       toast.success('Deleted');

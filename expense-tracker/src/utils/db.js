@@ -62,8 +62,20 @@ export const db = {
   },
 
   async seed() {
+    // Always re-fetch users so new accounts added to users.json are loaded
+    try {
+      const res = await fetch(`/data/users.json`);
+      const json = await res.json();
+      const users = json['users'] || json.data || (Array.isArray(json) ? json : []);
+      this.set(KEYS['users'], users);
+    } catch (e) {
+      if (!this.getAll(KEYS['users']).length) this.set(KEYS['users'], []);
+    }
+
+    // Only seed other data once (on first run)
     if (this.isInitialized()) return;
-    const files = ['users', 'expenses', 'income', 'categories', 'budgets', 'notifications'];
+
+    const files = ['expenses', 'income', 'categories', 'budgets', 'notifications'];
     await Promise.all(
       files.map(async (name) => {
         try {

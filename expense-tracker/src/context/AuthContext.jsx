@@ -4,6 +4,8 @@ import { hashPassword } from '../utils/auth';
 
 const AuthContext = createContext(null);
 
+const API = '/api'; // proxied to /api via vite.config.js
+
 function authReducer(state, action) {
   switch (action.type) {
     case 'SEED':      return { ...state, users: action.payload, seeded: true };
@@ -24,17 +26,22 @@ export function AuthProvider({ children }) {
   const [state, dispatch] = useReducer(authReducer, {
     users: [],
     currentUser: db.getSession(),
-    seeded: db.isInitialized(),
+    seeded: false,
   });
 
+  // Load users from backend on startup
   useEffect(() => {
-    fetch('http://localhost:5000/api/users')
+    fetch(`${API}/users`)
       .then(res => res.json())
-      .then(data => dispatch({ type: 'SEED', payload: data }))
-      .catch(console.error);
+      .then(data => dispatch({ type: 'SEED', payload: Array.isArray(data) ? data : [] }))
+      .catch(() => {
+        // Backend offline — fallback to localStorage
+        const users = db.getAll(db.KEYS.users);
+        dispatch({ type: 'SEED', payload: users });
+      });
   }, []);
 
-
+  // Persist session to localStorage
   useEffect(() => {
     if (state.currentUser) db.setSession(state.currentUser);
     else db.clearSession();
@@ -43,15 +50,26 @@ export function AuthProvider({ children }) {
   const register = async ({ name, email, password, role = 'employee' }) => {
     const hashedPw = await hashPassword(password);
     const payload = {
-      id: `usr_${Date.now()}`, name, email, password: hashedPw,
-      role, currency: 'INR', theme: 'dark', isActive: true,
+      id: `usr_${Date.now()}`,
+      name,
+      email,
+      password: hashedPw,
+      role,
+      currency: 'INR',
+      theme: 'dark',
+      isActive: true,
       createdAt: new Date().toISOString(),
     };
     try {
-      const res = await fetch('http://localhost:5000/api/users', {
-        method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload)
+      const res = await fetch(`${API}/users`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
       });
-      if (!res.ok) throw new Error('Registration failed (Email might be in use)');
+      if (!res.ok) {
+        const err = await res.json();
+        throw new Error(err.error || 'Registration failed (email may already be in use)');
+      }
       const newUser = await res.json();
       dispatch({ type: 'REGISTER', payload: newUser });
       return newUser;
@@ -62,10 +80,15 @@ export function AuthProvider({ children }) {
 
   const login = async (email, password) => {
     const hashedPw = await hashPassword(password);
-    const res = await fetch('http://localhost:5000/api/auth/login', {
-      method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email, password: hashedPw })
+    const res = await fetch(`${API}/auth/login`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password: hashedPw }),
     });
-    if (!res.ok) throw new Error('Invalid email or password');
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}));
+      throw new Error(err.error || 'Invalid email or password');
+    }
     const user = await res.json();
     const { password: _, ...sessionUser } = user;
     dispatch({ type: 'LOGIN', payload: sessionUser });

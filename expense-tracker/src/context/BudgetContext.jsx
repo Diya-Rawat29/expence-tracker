@@ -18,7 +18,7 @@ export function BudgetProvider({ children }) {
   });
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/budgets')
+    fetch('/api/budgets')
       .then(res => res.json())
       .then(data => dispatch({ type: 'SEED', payload: data }))
       .catch(console.error);
@@ -26,14 +26,14 @@ export function BudgetProvider({ children }) {
 
   const setBudget = async (categoryId, monthYear, limitAmount, userId) => {
     const payload = { id: `bud_${Date.now()}`, categoryId, monthYear, limitAmount: parseFloat(limitAmount), userId, createdAt: new Date().toISOString() };
-    await fetch('http://localhost:5000/api/budgets', {
+    await fetch('/api/budgets', {
       method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload)
     });
     dispatch({ type: 'SET', payload });
   };
 
   const deleteBudget = async (id) => {
-    await fetch(`http://localhost:5000/api/budgets/${id}`, { method: 'DELETE' });
+    await fetch(`/api/budgets/${id}`, { method: 'DELETE' });
     dispatch({ type: 'DELETE', payload: id });
   };
 
